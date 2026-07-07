@@ -1,91 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="axist.css">
-    <title>sker.lol</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sker — developer</title>
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #000000;
+      --fg: #ffffff;
+      --fg-muted: #a3a3a3;
+      --border: #1a1a1a;
+      --card-bg: #0a0a0a;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .hero__name {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero__tagline {
+      font-size: 1.125rem;
+      color: var(--fg-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero__sub {
+      font-size: 1.125rem;
+      color: var(--fg-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero__links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero__links a {
+      color: var(--fg-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .hero__links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: var(--fg);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .hero__links a:hover {
+      color: var(--fg);
+    }
+
+    .hero__links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* --- Section --- */
+    section {
+      padding: 100px 0;
+    }
+
+    .section__label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--fg-muted);
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    /* --- Projects --- */
+    .project {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .project:first-of-type {
+      border-top: 1px solid var(--border);
+    }
+
+    .project__name {
+      font-size: 1rem;
+      font-weight: 600;
+      min-width: 10rem;
+    }
+
+    .project__desc {
+      color: var(--fg-muted);
+      font-size: 0.875rem;
+      flex: 1;
+      min-width: 10rem;
+    }
+
+    .project__links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .project__links a {
+      color: var(--fg-muted);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .project__links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: var(--fg);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .project__links a:hover {
+      color: var(--fg);
+    }
+
+    .project__links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* --- Contact --- */
+    .contact p {
+      color: var(--fg-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 12px;
+    }
+
+    .contact__item {
+      display: block;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .contact__item:first-of-type {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact__item:hover {
+      color: var(--fg-muted);
+    }
+
+    .contact__item-label {
+      color: var(--fg-muted);
+      font-size: 0.8125rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .contact__note {
+      font-size: 0.8125rem;
+      color: #555;
+      margin-top: 16px;
+      font-style: italic;
+    }
+
+    /* --- Footer --- */
+    footer {
+      padding: 40px 0 60px;
+      text-align: center;
+      color: #333;
+      font-size: 0.8125rem;
+    }
+
+    /* --- Animations --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 480px) {
+      .hero__name {
+        font-size: 2.25rem;
+      }
+
+      .hero__tagline,
+      .hero__sub {
+        font-size: 1rem;
+      }
+
+      .project {
+        padding: 14px 0;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <nav style="display: flex; justify-content: space-between;">
-        <span class="nav-title" style="font-weight: bold;">
-            sker
-        </span>
-        <span>
-            <a href="#" class="nav-link">home</a> &nbsp;|&nbsp;
-            <a href="#projects" class="nav-link">projects</a> &nbsp;|&nbsp;
-            <a href="#contact" class="nav-link">contact</a>
-        </span>
-    </nav>
 
-    <section id="main-content">
-        <h1>sker</h1>
-        <p>Berlin-based developer</p>
-        <p>building small, useful things.</p>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__name fade-in">sker</h1>
+      <p class="hero__tagline fade-in">Berlin-based developer</p>
+      <p class="hero__sub fade-in">building small, useful things.</p>
+      <nav class="hero__links fade-in">
+        <a href="https://blog.sker.lol/">blog</a>
+        <a href="https://codeberg.org/sker">codeberg</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </header>
 
-        <a href="https://blog.sker.lol">blog ↗</a>
-        <a href="https://codeberg.org/sker">codeberg ↗</a>
-    </section>
+  <section id="projects">
+    <div class="container">
+      <p class="section__label fade-in">projects</p>
+      <div class="project fade-in">
+        <span class="project__name">Sonixy</span>
+        <span class="project__desc">audio library manager</span>
+        <div class="project__links">
+          <a href="https://sonixy.sker.lol/">site</a>
+          <a href="https://codeberg.org/sker/sonixy">source</a>
+        </div>
+      </div>
 
-    <section id="projects" class="hidden">
-        <h1>projects</h1>
-        <ol>
-            <li>
-                Sonixy <br>
-                audio library manager <br>
-                <a href="https://sonixy.sker.lol">web</a>
-                <a href="https://codeberg.org/sker/sonixy">src</a>
-            </li>
-            <li>
-                Bettery <br>
-                detailed battery stats for macOS living in the menu bar <br>
-                <a href="https://bettery.sker.lol">web</a>
-                <a href="https://codeberg.org/sker/Bettery">src</a>
-            </li>
+      <div class="project fade-in">
+        <span class="project__name">Bettery</span>
+        <span class="project__desc">customizable macos menu bar battery monitor</span>
+        <div class="project__links">
+          <a href="https://bettery.sker.lol/">site</a>
+          <a href="https://codeberg.org/sker/Bettery">source</a>
+        </div>
+      </div>
 
-            <li>
-                Slicer <br>
-                slice a photo into multiple slices <br>
-                <a href="https://codeberg.org/sker/slicer-app">src</a>
-            </li>
+      <div class="project fade-in">
+        <span class="project__name">Slicer</span>
+        <span class="project__desc">slice a photo into multiple slices</span>
+        <div class="project__links">
+          <a href="https://codeberg.org/sker/slicer-app">source</a>
+        </div>
+      </div>
 
-            <li>
-                Dictionary Lookup <br>
-                firefox extension to lookup selected text in preferred dictionary <br>
-                <a href="https://codeberg.org/sker/DictionaryLookup">src</a>
-            </li>
-        </ol>
-    </section>
+      <div class="project fade-in">
+        <span class="project__name">Dictionary Lookup</span>
+        <span class="project__desc">firefox extension for dictionary lookup</span>
+        <div class="project__links">
+          <a href="https://codeberg.org/sker/DictionaryLookup">source</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="contact" class="hidden">
-        <h1>contact</h1>
-        You can contact me via:
-        <ol>
-            <li>
-                email:
-                <a href="mailto:marcelsker@pm.me">
-                    marcelsker@pm.me
-                </a> <br>
-                <strong>
-                    I will not respond to any automated messages (ai slop).
-                </strong>
-            </li>
-            <li>
-                threads:
-                <a href="https://threads.com/@marcelsker">
-                    @marcelsker
-                </a>
-            </li>
-        </ol>
-    </section>
-    <footer>
-        <!-- check out the blog post about this page: "<a href="https://blog.sker.lol">Not everything needs to be fancy</a>" <br> -->
-        <span id="current-year"></span> sker.lol
-    </footer>
+  <section id="contact">
+    <div class="container">
+      <p class="section__label fade-in">contact</p>
+      <div class="contact">
+        <a href="mailto:marcelsker@pm.me" class="contact__item fade-in">
+          <span class="contact__item-label">email</span>
+          marcelsker@pm.me
+        </a>
+        <a href="https://threads.com/@marcelsker" class="contact__item fade-in" rel="me">
+          <span class="contact__item-label">threads</span>
+          @marcelsker
+        </a>
+        <p class="contact__note fade-in">I will not respond to any automated messages (ai slop).</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      &copy; sker
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <script src="https://keepandroidopen.org/banner.js"></script>
+
 </body>
-<script src="https://keepandroidopen.org/banner.js"></script>
-<script src="main.js"></script>
-
 </html>
